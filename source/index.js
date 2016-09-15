@@ -26,6 +26,7 @@ class DataSource extends Array {
     constructor(data, opts) {
         if (!Array.isArray(data)) {
             data = Array.prototype.slice.call(arguments);
+            opts = undefined;
         }
         super(...data);
 
