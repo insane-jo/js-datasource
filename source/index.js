@@ -31,8 +31,28 @@ class DataSource extends Array {
         }
         super(...data);
 
-        this._src       = data.map(deepCopyObject);
-        this._isDirty   = false;
+        let srcData = data.map(deepCopyObject);
+        Object.defineProperty(this, '_src', {
+            enumerable: false,
+            value: srcData,
+            writable: true
+        });
+
+        Object.defineProperty(this, '_isDirty', {
+            enumerable: false,
+            value: false,
+            writable: true
+        });
+
+        //Configures options
+        Object.defineProperty(this, '_opts', {
+            enumerable: false,
+            writable: true
+        });
+        Object.defineProperty(this, '_filterSettings', {
+            enumerable: false,
+            writable: true
+        });
 
         this.setOptions(opts);
     }
