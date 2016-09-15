@@ -1,4 +1,5 @@
 let deepEqual = require('deep-equal');
+let deepCondition = require('deep-condition');
 
 /**
  * @typedef {{}} DataSourceRow
@@ -21,7 +22,7 @@ class DataSource extends Array {
 
     /**
      * @param {Array<{}>} data
-     * @param opts
+     * @param {DataSourceOptions} [opts]
      */
     constructor(data, opts) {
         if (!Array.isArray(data)) {
@@ -31,8 +32,45 @@ class DataSource extends Array {
         super(...data);
 
         this._src       = data.map(deepCopyObject);
-        this._opts      = opts;
         this._isDirty   = false;
+
+        this.setOptions(opts);
+    }
+
+    /**
+     * Changes current data or returns full current data
+     * @param {Array<{}>} [newData]
+     * @return {Array<{}>}
+     */
+    data(newData) {
+        if (arguments.length) {
+            Array.apply(this, ...newData);
+            this._src = data.map(deepCopyObject);
+            this._isDirty = false;
+        }
+
+        return this;
+    }
+
+    /**
+     * Fully replaces options
+     * @param {DataSourceOptions} opts
+     */
+    setOptions(opts) {
+        this._opts = opts || {};
+        this.filter(opts && opts.filter);
+    }
+
+    /**
+     * @param {FilterSettings} filterSettings
+     * @return {FilterSettings}
+     */
+    filter(filterSettings) {
+        if (arguments.length) {
+            this._filterSettings = filterSettings;
+            this._opts.filter = filterSettings;
+        }
+        return this._filterSettings;
     }
 
     get isDirty() {
@@ -49,6 +87,20 @@ class DataSource extends Array {
 
             return this._isDirty;
         }
+    }
+
+    /**
+     * @return {Array}
+     */
+    view() {
+        let result = new Array(...this);
+
+        //Filtering
+        if (this._filterSettings) {
+            result = deepCondition(result, this._filterSettings);
+        }
+
+        return result;
     }
 }
 
