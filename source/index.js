@@ -44,8 +44,20 @@ class DataSource extends Array {
      */
     data(newData) {
         if (arguments.length) {
-            Array.apply(this, ...newData);
-            this._src = data.map(deepCopyObject);
+
+            let length = Math.max(this.length, newData.length);
+            for (let i = 0; i < length; i++) {
+                if (i in this && i in newData) {
+                    this[i] = deepCopyObject(newData[i]);
+                } else if (i in newData) {
+                    this[i] = deepCopyObject(newData[i]);
+                } else if (i in this) {
+                    delete this[i];
+                }
+            }
+            this.length = newData.length;
+
+            this._src = newData.map(deepCopyObject);
             this._isDirty = false;
         }
 
