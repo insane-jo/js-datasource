@@ -129,7 +129,11 @@ class DataSource extends Array {
 
         //Filtering
         if (this._filterSettings) {
-            result = deepCondition(result, this._filterSettings);
+            if (typeof this._filterSettings === 'function') {
+                result = result.filter(this._filterSettings);
+            } else {
+                result = deepCondition(result, this._filterSettings);
+            }
         }
 
         return result;
