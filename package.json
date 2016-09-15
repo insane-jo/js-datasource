@@ -1,0 +1,26 @@
+{
+  "name": "js-datasource",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require ./test/test-helper.js --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/insane-jo/js-datasource.git"
+  },
+  "keywords": [
+    "datasource"
+  ],
+  "author": "insane-jo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/insane-jo/js-datasource/issues"
+  },
+  "homepage": "https://github.com/insane-jo/js-datasource#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2"
+  }
+}
