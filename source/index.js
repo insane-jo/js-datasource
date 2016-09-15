@@ -34,22 +34,11 @@ class DataSource extends Array {
         this._isDirty   = false;
     }
 
-    /**
-     * @override
-     * @param {DataSourceRow} row
-     * @returns {DataSourceRow}
-     */
-    push(row) {
-        super.push(row);
-        this._isDirty = true;
-
-        return row;
-    }
-
     get isDirty() {
         if (this._isDirty) {
             return true;
         } else if (this.length !== this._src.length) {
+            this._isDirty = true;
             return true;
         } else {
 
@@ -59,7 +48,6 @@ class DataSource extends Array {
 
             return this._isDirty;
         }
-
     }
 }
 

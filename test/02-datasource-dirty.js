@@ -61,6 +61,14 @@ describe('02. Checking datasource is dirty', () => {
             delete ds[0];
             expect(ds.isDirty).equal(true);
         });
+
+        it('Splice makes datasource dirty', () => {
+            let ds = new DataSource(global.sampleData);
+
+            expect(ds.isDirty).equal(false);
+            ds.splice(0,2);
+            expect(ds.isDirty).equal(true);
+        });
     });
 
 });
