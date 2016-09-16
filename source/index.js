@@ -126,8 +126,8 @@ class DataSource extends Array {
             }
             this.length = newData.length;
 
-            this._src = newData.map(deepCopyObject);
-            this._isDirty = false;
+            // this._src = newData.map(deepCopyObject);
+            this._isDirty = true;
 
             this.emit('change', this);
         }

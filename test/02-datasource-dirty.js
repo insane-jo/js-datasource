@@ -69,6 +69,20 @@ describe('02. Checking datasource is dirty', () => {
             ds.splice(0,2);
             expect(ds.isDirty).equal(true);
         });
+
+        it('On rewrite data datasource becomes dirty', () => {
+            let ds = new DataSource(global.sampleData);
+
+            let newData = [
+                {a: 1, b: 1},
+                {a: 2, b: 3},
+                {a: 3, c: 4}
+            ];
+
+            expect(ds.isDirty).equal(false);
+            ds.data(newData);
+            expect(ds.isDirty).equal(true);
+        })
     });
 
 });

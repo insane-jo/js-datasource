@@ -20,7 +20,6 @@ describe('00. DataSource basic functions', () => {
 
             ds.data(newData);
             expect(ds.length).equal(3);
-            expect(ds.isDirty).equal(false);
         });
     });
 
